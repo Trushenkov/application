@@ -1,4 +1,4 @@
-package ru.tds.application.mappings;
+package ru.tds.application.domain;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -8,25 +8,27 @@ import java.util.Objects;
 @Table(name = "log", schema = "public", catalog = "SimpleDataBase")
 public class LogEntity {
     private int id;
-    private int user;
     private Date dateLogin;
     private Date dateLogout;
+    private Integer userss;
+
 
     @Override
     public String toString() {
         return String.format(
-                "LogEntity[id=%d, user='%s', dateLogin='%s', dateLogout='%s']",
-                id, user, dateLogin, dateLogout);
+                "Log [id=%d, dateLogin='%s', dateLogout='%s', userss='%s']",
+                id, dateLogin, dateLogout, userss);
     }
 
     public LogEntity() {
     }
 
-    public LogEntity(int id, int user, Date dateLogin, Date dateLogout) {
+    public LogEntity(int id, Date dateLogin, Date dateLogout, Integer userss) {
+
         this.id = id;
-        this.user = user;
         this.dateLogin = dateLogin;
         this.dateLogout = dateLogout;
+        this.userss = userss;
     }
 
     @Id
@@ -37,16 +39,6 @@ public class LogEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "user")
-    public int getUser() {
-        return user;
-    }
-
-    public void setUser(int user) {
-        this.user = user;
     }
 
     @Basic
@@ -69,20 +61,30 @@ public class LogEntity {
         this.dateLogout = dateLogout;
     }
 
+    @Basic
+    @Column(name = "userss")
+    public Integer getUserss() {
+        return userss;
+    }
+
+    public void setUserss(Integer userss) {
+        this.userss = userss;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LogEntity logEntity = (LogEntity) o;
         return id == logEntity.id &&
-                user == logEntity.user &&
                 Objects.equals(dateLogin, logEntity.dateLogin) &&
-                Objects.equals(dateLogout, logEntity.dateLogout);
+                Objects.equals(dateLogout, logEntity.dateLogout) &&
+                Objects.equals(userss, logEntity.userss);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, user, dateLogin, dateLogout);
+        return Objects.hash(id, dateLogin, dateLogout, userss);
     }
 }

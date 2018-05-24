@@ -1,4 +1,4 @@
-package ru.tds.application.mappings;
+package ru.tds.application.domain;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -13,7 +13,7 @@ public class RolesEntity {
     @Override
     public String toString() {
         return String.format(
-                "RolesEntity[id=%d, roleName='%s', roleDescription='%s']",
+                "Role [id=%d, roleName='%s', roleDescription='%s']",
                 id, roleName, roleDescription);
     }
 
