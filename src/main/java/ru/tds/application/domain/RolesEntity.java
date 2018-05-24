@@ -13,8 +13,8 @@ public class RolesEntity {
     @Override
     public String toString() {
         return String.format(
-                "Role [id=%d, roleName='%s', roleDescription='%s']",
-                id, roleName, roleDescription);
+                "Role [id=%d, roleName='%s', roleDescription='%s'] <br>",
+                id, roleName, roleDescription) + "<br>";
     }
 
     public RolesEntity(int id, String roleName, String roleDescription) {

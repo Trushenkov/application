@@ -17,7 +17,7 @@ public class UsersEntity {
     @Override
     public String toString() {
         return String.format(
-                "Пользователь [id=%d, firstName='%s', lastName='%s', login='%s', password='%s', active='%s', role='%d'] \n",
+                "Пользователь [id=%d, firstName='%s', lastName='%s', login='%s', password='%s', active='%s', role='%d'] <br>",
                 id, firstName, lastName, login, password, active, role);
 
     }

@@ -16,7 +16,7 @@ public class LogEntity {
     @Override
     public String toString() {
         return String.format(
-                "Log [id=%d, dateLogin='%s', dateLogout='%s', userss='%s']",
+                "Log [id=%d, dateLogin='%s', dateLogout='%s', userss='%s'] <br>",
                 id, dateLogin, dateLogout, userss);
     }
 
