@@ -14,7 +14,7 @@ public class RolesEntity {
     public String toString() {
         return String.format(
                 "Role [id=%d, roleName='%s', roleDescription='%s'] <br>",
-                id, roleName, roleDescription) + "<br>";
+                id, roleName, roleDescription);
     }
 
     public RolesEntity(int id, String roleName, String roleDescription) {
