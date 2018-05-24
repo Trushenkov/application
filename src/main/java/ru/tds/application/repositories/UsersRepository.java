@@ -1,10 +1,17 @@
 package ru.tds.application.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.omg.CORBA.UserException;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import ru.tds.application.mappings.UsersEntity;
+import ru.tds.application.domain.UsersEntity;
+
+import java.util.List;
 
 @Repository
-public interface UsersRepository extends JpaRepository<UsersEntity, Integer> {
+public interface UsersRepository extends CrudRepository<UsersEntity, Integer> {
+
+    List<UsersEntity> findByFirstName(String firstName);
+
+    List<UsersEntity> findByRoleEquals(int value);
 
 }

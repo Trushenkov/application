@@ -2,8 +2,8 @@ package ru.tds.application.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import ru.tds.application.mappings.UsersEntity;
+import ru.tds.application.domain.LogEntity;
 
 @Repository
-public interface LogRepository extends CrudRepository<UsersEntity, Integer> {
+public interface LogRepository extends CrudRepository<LogEntity, Integer> {
 }
