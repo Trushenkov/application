@@ -1,8 +1,7 @@
-package ru.tds.application.domain;
+package ru.tds.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 public class Application {
