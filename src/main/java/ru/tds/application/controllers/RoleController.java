@@ -21,7 +21,7 @@ public class RoleController {
     @RequestMapping(value = "/role/save/super_admin", method = RequestMethod.GET)
     public RolesEntity saveUser() {
         return repository.save(
-                new RolesEntity(3,"SUPER_ADMIN", "This id role for SUPER ADMIN"));
+                new RolesEntity(3, "SUPER_ADMIN", "This id role for SUPER ADMIN"));
     }
 
     /**
@@ -30,8 +30,9 @@ public class RoleController {
      * @return роль со значением id=1
      */
     @RequestMapping(value = "/role/1")
-    public String role1(){
-        return repository.findById(1).toString();
+    public String role1() {
+        return "Пользователь со значением  id = 1: <br>"
+                + repository.findById(1).toString();
     }
 
     /**
@@ -40,8 +41,9 @@ public class RoleController {
      * @return роль со значением id=2
      */
     @RequestMapping(value = "/role/2")
-    public String role2(){
-        return repository.findById(2).toString();
+    public String role2() {
+        return "Пользователь со значением  id = 2: <br>"
+                + repository.findById(2).toString();
     }
 
     /**
@@ -50,8 +52,9 @@ public class RoleController {
      * @return роль со значением id=3
      */
     @RequestMapping(value = "/role/3")
-    public String role3(){
-        return repository.findById(3).toString();
+    public String role3() {
+        return "Роль со значением  id = 3: <br>"
+                + repository.findById(3).toString();
     }
 
     /**
@@ -60,8 +63,8 @@ public class RoleController {
      * @return все записи из таблицы
      */
     @RequestMapping(value = "/role/all")
-    public String roleAll(){
-        return repository.findAll().toString();
+    public String roleAll() {
+        return "Все роли из таблицы roles: <br> " + repository.findAll().toString();
     }
 
 

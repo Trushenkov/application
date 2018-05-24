@@ -35,7 +35,7 @@ public class UsersController {
 
     @RequestMapping(value = "user/all")
     public String findAll() {
-        return "Список всех пользователей: \n -------"
+        return "Список всех пользователей: <br>"
                 + repository.findAll().toString();
     }
 
@@ -64,8 +64,8 @@ public class UsersController {
      */
     @RequestMapping(value = "user/role1")
     public String role1() {
-        return "Пользователи со значениями поля role = 1: \n -------"
-                + repository.findByRoleEquals(1).toString() + "\n";
+        return "Пользователи со значениями поля role = 1: <br>"
+                + repository.findByRoleEquals(1).toString();
     }
 
     /**
@@ -75,8 +75,8 @@ public class UsersController {
      */
     @RequestMapping(value = "user/role2")
     public String role2() {
-        return "Пользователи со значениями поля role = 2: \n -------"
-                + repository.findByRoleEquals(2).toString() + "\n";
+        return "Пользователи со значениями поля role = 2:<br>"
+                + repository.findByRoleEquals(2).toString();
     }
 
     /**
@@ -86,7 +86,7 @@ public class UsersController {
      */
     @RequestMapping(value = "/user/ivan")
     public String findIvan() {
-        return "Пользователь с именем Иван: \n -------"
+        return "Пользователь с именем Иван:<br>"
                 + (repository.findByFirstName("Иван")).toString();
     }
 
@@ -98,7 +98,7 @@ public class UsersController {
      */
     @RequestMapping(value = "/user/1")
     public String id1() {
-        return "Пользователь со значением  id = 1: \n -------"
+        return "Пользователь со значением  id = 1: <br>"
                 + repository.findById(1).toString();
     }
 
@@ -109,7 +109,7 @@ public class UsersController {
      */
     @RequestMapping(value = "/user/2")
     public String id2() {
-        return "Пользователь со значением  id = 2: \n -------"
+        return "Пользователь со значением  id = 2: <br>"
                 + repository.findById(2).toString();
     }
 
@@ -120,7 +120,7 @@ public class UsersController {
      */
     @RequestMapping(value = "/user/3")
     public String id3() {
-        return "Пользователь со значением  id = 3: \n -------"
+        return "Пользователь со значением  id = 3: <br>"
                 + repository.findById(3).toString();
     }
 
@@ -131,7 +131,7 @@ public class UsersController {
      */
     @RequestMapping(value = "/user/4")
     public String id4() {
-        return "Пользователь со значением  id = 4: \n -------"
+        return "Пользователь со значением  id = 4: <br>"
                 + repository.findById(4).toString();
     }
 
@@ -142,7 +142,7 @@ public class UsersController {
      */
     @RequestMapping(value = "/user/5")
     public String id5() {
-        return "Пользователь со значением  id = 5: \n -------"
+        return "Пользователь со значением  id = 5: <br>"
                 + repository.findById(5).toString();
     }
 

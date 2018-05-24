@@ -17,8 +17,9 @@ public class LogController {
      * @return все записи из таблицы log
      */
     @RequestMapping(value = "log/all")
-    public String logAll(){
-        return repository.findAll().toString();
+    public String logAll() {
+        return "Список всех записей в таблице log: <br>"
+                + repository.findAll().toString();
     }
 
     /**
@@ -27,8 +28,9 @@ public class LogController {
      * @return запись со значением id=1
      */
     @RequestMapping(value = "log/1")
-    public String log1(){
-        return repository.findById(1).toString();
+    public String log1() {
+        return "Log со значением id = 1: <br>" +
+                repository.findById(1).toString();
     }
 
 
