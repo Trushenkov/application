@@ -7,29 +7,26 @@ import java.util.Objects;
 @Entity
 @Table(name = "log", schema = "public", catalog = "SimpleDataBase")
 public class LogEntity {
+
     private int id;
+
     private Date dateLogin;
+
     private Date dateLogout;
-    private Integer userss;
 
-
-    @Override
-    public String toString() {
-        return String.format(
-                "Log [id=%d, dateLogin='%s', dateLogout='%s', userss='%s'] <br>",
-                id, dateLogin, dateLogout, userss);
-    }
+    private String userLogin;
 
     public LogEntity() {
+
     }
 
-    public LogEntity(int id, Date dateLogin, Date dateLogout, Integer userss) {
-
+    public LogEntity(int id, Date dateLogin, Date dateLogout, String userLogin) {
         this.id = id;
         this.dateLogin = dateLogin;
         this.dateLogout = dateLogout;
-        this.userss = userss;
+        this.userLogin = userLogin;
     }
+
 
     @Id
     @Column(name = "id")
@@ -62,13 +59,20 @@ public class LogEntity {
     }
 
     @Basic
-    @Column(name = "userss")
-    public Integer getUserss() {
-        return userss;
+    @Column(name = "user_login")
+    public String getUserLogin() {
+        return userLogin;
     }
 
-    public void setUserss(Integer userss) {
-        this.userss = userss;
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Log [id=%d, dateLogin='%s', dateLogout='%s', user_login='%s'] <br>",
+                id, dateLogin, dateLogout, userLogin);
     }
 
     @Override
@@ -79,12 +83,12 @@ public class LogEntity {
         return id == logEntity.id &&
                 Objects.equals(dateLogin, logEntity.dateLogin) &&
                 Objects.equals(dateLogout, logEntity.dateLogout) &&
-                Objects.equals(userss, logEntity.userss);
+                Objects.equals(userLogin, logEntity.userLogin);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, dateLogin, dateLogout, userss);
+        return Objects.hash(id, dateLogin, dateLogout, userLogin);
     }
 }

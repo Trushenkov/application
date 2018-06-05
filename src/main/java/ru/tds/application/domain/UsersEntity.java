@@ -6,23 +6,23 @@ import java.util.Objects;
 @Entity
 @Table(name = "users", schema = "public", catalog = "SimpleDataBase")
 public class UsersEntity {
+
     private int id;
+
     private String firstName;
+
     private String lastName;
+
     private String login;
+
     private String password;
+
     private Boolean active;
+
     private Integer role;
 
-    @Override
-    public String toString() {
-        return String.format(
-                "Пользователь [id=%d, firstName='%s', lastName='%s', login='%s', password='%s', active='%s', role='%d'] <br>",
-                id, firstName, lastName, login, password, active, role);
-
-    }
-
     public UsersEntity() {
+
     }
 
     public UsersEntity(int id, String firstName, String lastName, String login, String password, Boolean active, Integer role) {
@@ -103,6 +103,14 @@ public class UsersEntity {
 
     public void setRole(Integer role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Пользователь [id=%d, firstName='%s', lastName='%s', login='%s', password='%s', active='%s', role='%d'] <br>",
+                id, firstName, lastName, login, password, active, role);
+
     }
 
     @Override
