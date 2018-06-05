@@ -7,13 +7,15 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.tds.application.domain.UsersEntity;
 import ru.tds.application.repositories.UsersRepository;
 
-import java.util.Optional;
-
 @RestController
 public class UsersController {
 
+    private final UsersRepository repository;
+
     @Autowired
-    private UsersRepository repository;
+    public UsersController(UsersRepository repository) {
+        this.repository = repository;
+    }
 
     /**
      * Метод для сохранения нового пользователя в таблицу users
