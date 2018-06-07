@@ -1,7 +1,7 @@
 package ru.tds.application.domain;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Time;
 import java.util.Objects;
 
 @Entity
@@ -10,9 +10,9 @@ public class LogEntity {
 
     private int id;
 
-    private Date dateLogin;
+    private Time dateLogin;
 
-    private Date dateLogout;
+    private Time dateLogout;
 
     private String userLogin;
 
@@ -20,7 +20,7 @@ public class LogEntity {
 
     }
 
-    public LogEntity(int id, Date dateLogin, Date dateLogout, String userLogin) {
+    public LogEntity(int id, Time dateLogin, Time dateLogout, String userLogin) {
         this.id = id;
         this.dateLogin = dateLogin;
         this.dateLogout = dateLogout;
@@ -40,21 +40,21 @@ public class LogEntity {
 
     @Basic
     @Column(name = "date_login")
-    public Date getDateLogin() {
+    public Time getDateLogin() {
         return dateLogin;
     }
 
-    public void setDateLogin(Date dateLogin) {
+    public void setDateLogin(Time dateLogin) {
         this.dateLogin = dateLogin;
     }
 
     @Basic
     @Column(name = "date_logout")
-    public Date getDateLogout() {
+    public Time getDateLogout() {
         return dateLogout;
     }
 
-    public void setDateLogout(Date dateLogout) {
+    public void setDateLogout(Time dateLogout) {
         this.dateLogout = dateLogout;
     }
 
