@@ -60,7 +60,7 @@ public class LogSecurityAspect implements ApplicationListener<AuthenticationSucc
         User userName = (User) event.getAuthentication().getPrincipal();
         LogEntity log = new LogEntity();
         try {
-            log.setId(1);
+//            log.setId(1);
             log.setDateLogin(new Time(System.currentTimeMillis() - 3600 * 1000));
             log.setUserLogin(userName.getUsername());
             repository.saveAndFlush(log);
