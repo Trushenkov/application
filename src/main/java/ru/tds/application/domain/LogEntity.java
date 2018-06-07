@@ -8,6 +8,7 @@ import java.util.Objects;
 @Table(name = "log", schema = "public", catalog = "SimpleDataBase")
 public class LogEntity {
 
+    @GeneratedValue
     private int id;
 
     private Time dateLogin;
