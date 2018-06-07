@@ -5,6 +5,7 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.core.session.SessionDestroyedEvent;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import ru.tds.application.domain.LogEntity;
@@ -13,16 +14,17 @@ import ru.tds.application.repositories.LogRepository;
 import ru.tds.application.repositories.UsersRepository;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 /**
- * Класс,в котором реализована запись информации о пользователе в таблицу log, когда пользователь выполняет запрос /user/all
+ * Класс,в котором реализована запись информации о пользователе в таблицу log, когда пользователь выполняет защищенные запросы /user/**
  *
  * @author Трушенков Дмитрий
  */
 @Component
 @Aspect
-public class LogSecurityAspect implements ApplicationListener<AuthenticationSuccessEvent> {
+public class LogSecurityAspect implements ApplicationListener<AuthenticationSuccessEvent>{
 
 //    private final UsersRepository userRepository;
 
@@ -58,11 +60,9 @@ public class LogSecurityAspect implements ApplicationListener<AuthenticationSucc
         User userName = (User) event.getAuthentication().getPrincipal();
         LogEntity log = new LogEntity();
         try {
-            java.util.Date today = new java.util.Date();//Текущая дата
             log.setId(1);
-            log.setDateLogin(new Date(today.getTime()));
+            log.setDateLogin(new Time(System.currentTimeMillis() - 3600 * 1000));
             log.setUserLogin(userName.getUsername());
-            log.setDateLogout(new Date(118, 5, 8));
             repository.saveAndFlush(log);
         } catch (Exception ignored) {
         }
