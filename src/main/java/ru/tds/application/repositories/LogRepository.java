@@ -6,4 +6,5 @@ import ru.tds.application.domain.LogEntity;
 
 @Repository
 public interface LogRepository extends CrudRepository<LogEntity, Integer> {
+    void saveAndFlush(LogEntity log);
 }

@@ -15,4 +15,6 @@ public interface UsersRepository extends CrudRepository<UsersEntity, Integer> {
 
     UsersEntity getById(int id);
 
+    UsersEntity findByLogin(String login);
+
 }
