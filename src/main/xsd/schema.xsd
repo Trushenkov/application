@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="Таблица">
+        <xs:complexType>
+            <xs:sequence>
+                    <xs:element name="НомерПП" type="xs:int"/>
+                    <xs:element name="Наименование" type="xs:string"/>
+
+                    <xs:element name="ИНН" type="xs:string"/>
+                    <xs:element name="КПП" type="xs:string"/>
+                    <xs:element name="РегистрационныйНомерВПФР" type="xs:string"/>
+                    <xs:element name="Фамилия" type="xs:string"/>
+                    <xs:element name="Имя" type="xs:string"/>
+                    <xs:element name="Отчетство" type="xs:string"/>
+                    <xs:element name="ДатаРождения" type="xs:date"/>
+                    <xs:element name="СНИЛС" type="xs:string"/>
+
+                    <xs:element name="ДатаЗаключенияТрудовогоДоговора" type="xs:date"/>
+                    <xs:element name="СрокНаКоторыйЗаключенТрудовойДоговор" type="xs:string"/>
+
+                    <xs:element name="ПодтверждениеСтажаРаботы" type="xs:string"/>
+                    <xs:element name="ПодтверждениеНачисленияСтраховыхВзносов" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
