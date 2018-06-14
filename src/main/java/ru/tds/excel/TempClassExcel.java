@@ -51,10 +51,8 @@ public class TempClassExcel {
 
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            return result;
         }
-
+        return result;
     }
 
 }
