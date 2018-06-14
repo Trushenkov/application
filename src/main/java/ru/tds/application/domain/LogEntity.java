@@ -8,13 +8,21 @@ import java.util.Objects;
 @Table(name = "log", schema = "public", catalog = "SimpleDataBase")
 public class LogEntity {
 
-    @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
+    @Basic
+    @Column(name = "date_login")
     private Time dateLogin;
 
+    @Basic
+    @Column(name = "date_logout")
     private Time dateLogout;
 
+    @Basic
+    @Column(name = "user_login")
     private String userLogin;
 
     public LogEntity() {
@@ -28,9 +36,6 @@ public class LogEntity {
         this.userLogin = userLogin;
     }
 
-
-    @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -39,8 +44,7 @@ public class LogEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "date_login")
+
     public Time getDateLogin() {
         return dateLogin;
     }
@@ -49,8 +53,7 @@ public class LogEntity {
         this.dateLogin = dateLogin;
     }
 
-    @Basic
-    @Column(name = "date_logout")
+
     public Time getDateLogout() {
         return dateLogout;
     }
@@ -59,8 +62,7 @@ public class LogEntity {
         this.dateLogout = dateLogout;
     }
 
-    @Basic
-    @Column(name = "user_login")
+
     public String getUserLogin() {
         return userLogin;
     }

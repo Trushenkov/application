@@ -7,18 +7,33 @@ import java.util.Objects;
 @Table(name = "users", schema = "public", catalog = "SimpleDataBase")
 public class UsersEntity {
 
+
+    @Id
+    @Column(name = "id")
     private int id;
 
+    @Basic
+    @Column(name = "first_name")
     private String firstName;
 
+    @Basic
+    @Column(name = "last_name")
     private String lastName;
 
+    @Basic
+    @Column(name = "login")
     private String login;
 
+    @Basic
+    @Column(name = "password")
     private String password;
 
+    @Basic
+    @Column(name = "active")
     private Boolean active;
 
+    @Basic
+    @Column(name = "role")
     private Integer role;
 
     public UsersEntity() {
@@ -35,8 +50,6 @@ public class UsersEntity {
         this.role = role;
     }
 
-    @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -45,8 +58,7 @@ public class UsersEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "first_name")
+
     public String getFirstName() {
         return firstName;
     }
@@ -55,8 +67,7 @@ public class UsersEntity {
         this.firstName = firstName;
     }
 
-    @Basic
-    @Column(name = "last_name")
+
     public String getLastName() {
         return lastName;
     }
@@ -65,8 +76,7 @@ public class UsersEntity {
         this.lastName = lastName;
     }
 
-    @Basic
-    @Column(name = "login")
+
     public String getLogin() {
         return login;
     }
@@ -75,8 +85,7 @@ public class UsersEntity {
         this.login = login;
     }
 
-    @Basic
-    @Column(name = "password")
+
     public String getPassword() {
         return password;
     }
@@ -85,8 +94,7 @@ public class UsersEntity {
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "active")
+
     public Boolean getActive() {
         return active;
     }
@@ -95,8 +103,7 @@ public class UsersEntity {
         this.active = active;
     }
 
-    @Basic
-    @Column(name = "role")
+
     public Integer getRole() {
         return role;
     }

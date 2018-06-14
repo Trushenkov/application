@@ -6,8 +6,17 @@ import java.util.Objects;
 @Entity
 @Table(name = "roles", schema = "public", catalog = "SimpleDataBase")
 public class RolesEntity {
+
+    @Id
+    @Column(name = "id")
     private int id;
+
+    @Basic
+    @Column(name = "role_name")
     private String roleName;
+
+    @Basic
+    @Column(name = "role_description")
     private String roleDescription;
 
     @Override
@@ -26,8 +35,7 @@ public class RolesEntity {
     public RolesEntity() {
     }
 
-    @Id
-    @Column(name = "id")
+
     public int getId() {
         return id;
     }
@@ -36,8 +44,7 @@ public class RolesEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "role_name")
+
     public String getRoleName() {
         return roleName;
     }
@@ -46,8 +53,7 @@ public class RolesEntity {
         this.roleName = roleName;
     }
 
-    @Basic
-    @Column(name = "role_description")
+
     public String getRoleDescription() {
         return roleDescription;
     }
