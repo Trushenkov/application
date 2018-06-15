@@ -57,6 +57,7 @@ public class TempClassExcel {
                 EDPFR.SNZ.ПодтверждениеСтажа.Запись.ТрудовойДоговор workDocument = new EDPFR.SNZ.ПодтверждениеСтажа.Запись.ТрудовойДоговор();
                 if (row.getRowNum() > 5 && row.getRowNum() < 33) {
                     EDPFR.SNZ snz = new EDPFR.SNZ();
+
                     for (Cell cell : row) {
 
                         switch (cell.getColumnIndex()) {
@@ -124,7 +125,7 @@ public class TempClassExcel {
                                 System.out.println(cell.getBooleanCellValue());
                                 break;
                         }
-
+                        asdddd.getЗапись();
                         snz.setПодтверждениеСтажа(asdddd);
                     }
                     edpfr.setSNZ(snz);
