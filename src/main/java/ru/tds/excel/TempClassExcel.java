@@ -4,19 +4,25 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.w3c.dom.Document;
 import рф.пф.всво.роив.снз._2017_10_06.EDPFR;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.*;
 import java.util.ArrayList;
 
 public class TempClassExcel {
 
     private static final String FILE_PATH = "C:\\Users\\user\\Desktop\\014.xls";
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws Exception {
         File file = new File(FILE_PATH);
         System.out.println(file.getAbsolutePath());
 
@@ -29,6 +35,8 @@ public class TempClassExcel {
         } else {
             System.out.println("Файл не существует");
         }
+
+
     }
 
     /**
@@ -37,109 +45,104 @@ public class TempClassExcel {
      * @param file excel-документ
      * @return данные из excel-документа
      */
-    private static void readFromExcel(String file) throws IOException {
-
-        рф.пф.всво.роив.снз._2017_10_06.EDPFR edpfr = new EDPFR();
-
+    private static void readFromExcel(String file) throws Exception {
 
         try (HSSFWorkbook book = new HSSFWorkbook(new FileInputStream(file))) {
 
             HSSFSheet sheet = book.getSheetAt(0);
 
-            ArrayList<EDPFR> list = new ArrayList<>();
+            EDPFR edpfr = new EDPFR();
+
 
             for (Row row : sheet) {
-
-                EDPFR.SNZ.ПодтверждениеСтажа asdddd = new EDPFR.SNZ.ПодтверждениеСтажа();
-                EDPFR.SNZ.ПодтверждениеСтажа.Запись letter = new EDPFR.SNZ.ПодтверждениеСтажа.Запись();
-                EDPFR.SNZ.ПодтверждениеСтажа.Запись.Работодатель empoyment = new EDPFR.SNZ.ПодтверждениеСтажа.Запись.Работодатель();
-                EDPFR.SNZ.ПодтверждениеСтажа.Запись.Работник worker = new EDPFR.SNZ.ПодтверждениеСтажа.Запись.Работник();
-                EDPFR.SNZ.ПодтверждениеСтажа.Запись.ТрудовойДоговор workDocument = new EDPFR.SNZ.ПодтверждениеСтажа.Запись.ТрудовойДоговор();
                 if (row.getRowNum() > 5 && row.getRowNum() < 33) {
-                    EDPFR.SNZ snz = new EDPFR.SNZ();
 
+                    EDPFR.SNZ snz = new EDPFR.SNZ();
+                    EDPFR.SNZ.Работодатель employer = new EDPFR.SNZ.Работодатель();
+                    EDPFR.SNZ.Работник worker = new EDPFR.SNZ.Работник();
+                    EDPFR.SNZ.ТрудовойДоговор workDocument = new EDPFR.SNZ.ТрудовойДоговор();
                     for (Cell cell : row) {
 
                         switch (cell.getColumnIndex()) {
                             case 1:
                                 snz.setМуниципальноеОбразование(cell.getStringCellValue());
-                                System.out.println(cell.getStringCellValue());
                                 break;
                             case 2:
-                                empoyment.setНаименование(cell.getStringCellValue());
-                                System.out.println(cell.getStringCellValue());
-
+                                employer.setНаименование(cell.getStringCellValue());
                                 break;
                             case 3:
-                                empoyment.setИНН(String.valueOf(cell.getNumericCellValue()));
-                                System.out.println(String.valueOf(cell.getNumericCellValue()));
+                                employer.setИНН(String.valueOf(cell.getNumericCellValue()));
                                 break;
                             case 4:
-                                empoyment.setКПП(String.valueOf(cell.getNumericCellValue()));
-                                System.out.println(String.valueOf(cell.getNumericCellValue()));
-
+                                employer.setКПП(String.valueOf(cell.getNumericCellValue()));
                                 break;
                             case 5:
-                                empoyment.setРегНомер(cell.getStringCellValue());
-                                System.out.println(cell.getStringCellValue());
-
+                                employer.setРегНомер(cell.getStringCellValue());
                                 break;
                             case 6:
                                 worker.setФамилия(cell.getStringCellValue());
-                                System.out.println(cell.getStringCellValue());
-
                                 break;
                             case 7:
                                 worker.setИмя(cell.getStringCellValue());
-                                System.out.println(cell.getStringCellValue());
-
                                 break;
                             case 8:
                                 worker.setОтчество(cell.getStringCellValue());
-                                System.out.println(cell.getStringCellValue());
-
                                 break;
                             case 9:
                                 worker.setДатаРождения(cell.getDateCellValue());
-                                System.out.println(cell.getDateCellValue());
-
                                 break;
                             case 10:
                                 worker.setСНИЛС(cell.getStringCellValue());
-                                System.out.println(cell.getStringCellValue());
                                 break;
                             case 11:
                                 workDocument.setДата(cell.getDateCellValue());
-                                System.out.println(cell.getDateCellValue());
                                 break;
                             case 12:
                                 workDocument.setСрок(cell.getStringCellValue());
-                                System.out.println(cell.getStringCellValue());
                                 break;
                             case 13:
-                                letter.setСтажПодтвержден(cell.getBooleanCellValue());
-                                System.out.println(cell.getBooleanCellValue());
+                                snz.setСтажПодтвержден(cell.getBooleanCellValue());
                                 break;
                             case 14:
-                                letter.setНачисленыСВ(cell.getBooleanCellValue());
-                                System.out.println(cell.getBooleanCellValue());
+                                snz.setНачисленыСВ(cell.getBooleanCellValue());
                                 break;
                         }
-                        asdddd.getЗапись();
-                        snz.setПодтверждениеСтажа(asdddd);
+
                     }
+                    snz.setРаботник(worker);
+                    snz.setРаботодатель(employer);
+                    snz.setТрудовойДоговор(workDocument);
                     edpfr.setSNZ(snz);
-                    list.add(edpfr);
+                    writeToXml(getXMLDocument(edpfr,EDPFR.class));
                 }
 
-
             }
-
-
-            System.out.println(list.size());
         }
+    }
 
+    private static void writeToXml(String string) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\user\\Desktop\\application\\src\\main\\xsd\\014.xml", true))) {
+            writer.write(string);
+        }
+    }
 
+    private static <T> String getXMLDocument(T objectToParse, Class xmlDocumentClass) throws Exception {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.newDocument();
+
+        JAXBContext contextForRequest = JAXBContext.newInstance(xmlDocumentClass);
+        Marshaller m = contextForRequest.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        m.marshal(objectToParse, document);
+
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer = tf.newTransformer();
+        StringWriter writer = new StringWriter();
+        transformer.transform(new DOMSource(document), new StreamResult(writer));
+
+        return writer.toString();
     }
 }
 
