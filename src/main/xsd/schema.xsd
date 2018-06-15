@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns="http://пф.рф/ВсВО/РОИВ/СНЗ/2017-10-06" xmlns:УТ2="http://пф.рф/УТ/2017-08-21"
+<xs:schema version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           xmlns="http://пф.рф/ВсВО/РОИВ/СНЗ/2017-10-06"
            targetNamespace="http://пф.рф/ВсВО/РОИВ/СНЗ/2017-10-06">
 
-    <xs:import namespace="http://пф.рф/УТ/2017-08-21" schemaLocation="УнифТипы_2017-08-21.xsd"/>
-    <xs:import namespace="http://пф.рф/АФ/2017-08-21" schemaLocation="ТипыАФ_2017-08-21.xsd"/>
-    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig_core_schema.xsd"/>
-
     <xs:annotation>
-        <xs:documentation>СНЗ Информация о сверке данных, полученных в результате ведения индивидуального учета закрепляемости на рабочих местах лиц, заключивших трудовые договоры в ходе реализации мер по снижению неформальной занятости</xs:documentation>
+        <xs:documentation>СНЗ Информация о сверке данных, полученных в результате ведения индивидуального учета
+            закрепляемости на рабочих местах лиц, заключивших трудовые договоры в ходе реализации мер по снижению
+            неформальной занятости
+        </xs:documentation>
     </xs:annotation>
 
     <xs:element name="EDPFR">
@@ -15,126 +15,123 @@
             <xs:sequence>
                 <xs:element name="SNZ">
                     <xs:annotation>
-                        <xs:documentation>Информация о сверке данных, полученных в результате ведения индивидуального учета закрепляемости на рабочих местах лиц, заключивших трудовые договоры в ходе реализации мер по снижению неформальной занятости</xs:documentation>
+                        <xs:documentation>Информация о сверке данных, полученных в результате ведения индивидуального
+                            учета закрепляемости на рабочих местах лиц, заключивших трудовые договоры в ходе реализации
+                            мер по снижению неформальной занятости
+                        </xs:documentation>
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
 
-                            <xs:element name="МуниципальноеОбразование" type="УТ2:ТипНепустаяСтрока">
+                            <xs:element name="МуниципальноеОбразование" type="xs:string">
                                 <xs:annotation>
                                     <xs:documentation>Муниципальное образование</xs:documentation>
                                 </xs:annotation>
                             </xs:element>
 
-                            <xs:element name="ПодтверждениеСтажа">
+                            <xs:element name="Работодатель">
                                 <xs:annotation>
-                                    <xs:documentation>Информация о подтверждении стажа</xs:documentation>
+                                    <xs:documentation>Информация о работодателе</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="Запись" maxOccurs="unbounded">
+                                        <xs:element name="Наименование" type="xs:string">
                                             <xs:annotation>
-                                                <xs:documentation>Информация о подтверждении стажа по одному работнику</xs:documentation>
+                                                <xs:documentation>Наименование работодателя
+                                                </xs:documentation>
                                             </xs:annotation>
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element name="Работодатель">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Информация о работодателе</xs:documentation>
-                                                        </xs:annotation>
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="Наименование" type="xs:string">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Наименование работодателя</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="ИНН" type="xs:string">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>ИНН работодателя</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="КПП" type="xs:string">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>КПП работодателя</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="РегНомер" type="xs:string">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Регистрационный номер ПФР работодателя</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                            </xs:sequence>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                    <xs:element name="Работник">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Информация о работнике</xs:documentation>
-                                                        </xs:annotation>
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="Фамилия" type="xs:string">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Фамилия работника</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="Имя" type="xs:string">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Имя работника</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="Отчество" type="xs:string">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Отчество работника</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="ДатаРождения" type="xs:date">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Дата рождения работника</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="СНИЛС" type="xs:string">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>СНИЛС работника</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                            </xs:sequence>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                    <xs:element name="ТрудовойДоговор">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Информация о трудовом договоре</xs:documentation>
-                                                        </xs:annotation>
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="Дата" type="xs:date">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Дата заключения трудового договора (дата регистрации в качестве индивидуального предпринимателя в регистрирующем (налоговом) органе) (день, месяц, год)</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="Срок" type="xs:string" minOccurs="0">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Срок, на который заключен трудовой договор (день, месяц, год). Если дата окончания не указана, договор заключен «бессрочно»</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                            </xs:sequence>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                    <xs:element name="СтажПодтвержден" type="xs:boolean">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Подтверждение стажа работы. Возможные значения: 1 - да, 0 - нет</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
-                                                    <xs:element name="НачисленыСВ" type="xs:boolean">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Подтверждение начисления страховых взносов. Возможные значения: 1 - да, 0 - нет</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
-                                                </xs:sequence>
-                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="ИНН" type="xs:string">
+                                            <xs:annotation>
+                                                <xs:documentation>ИНН работодателя</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="КПП" type="xs:string">
+                                            <xs:annotation>
+                                                <xs:documentation>КПП работодателя</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="РегНомер" type="xs:string">
+                                            <xs:annotation>
+                                                <xs:documentation>Регистрационный номер ПФР работодателя
+                                                </xs:documentation>
+                                            </xs:annotation>
                                         </xs:element>
                                     </xs:sequence>
                                 </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Работник">
+                                <xs:annotation>
+                                    <xs:documentation>Информация о работнике</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Фамилия" type="xs:string">
+                                            <xs:annotation>
+                                                <xs:documentation>Фамилия работника</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Имя" type="xs:string">
+                                            <xs:annotation>
+                                                <xs:documentation>Имя работника</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Отчество" type="xs:string">
+                                            <xs:annotation>
+                                                <xs:documentation>Отчество работника</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="ДатаРождения" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Дата рождения работника</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="СНИЛС" type="xs:string">
+                                            <xs:annotation>
+                                                <xs:documentation>СНИЛС работника</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="ТрудовойДоговор">
+                                <xs:annotation>
+                                    <xs:documentation>Информация о трудовом договоре</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Дата" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Дата заключения трудового договора (дата
+                                                    регистрации в качестве индивидуального предпринимателя в
+                                                    регистрирующем (налоговом) органе) (день, месяц, год)
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Срок" type="xs:string" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Срок, на который заключен трудовой договор
+                                                    (день, месяц, год). Если дата окончания не указана,
+                                                    договор заключен «бессрочно»
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="СтажПодтвержден" type="xs:boolean">
+                                <xs:annotation>
+                                    <xs:documentation>Подтверждение стажа работы. Возможные значения: 1 -
+                                        да, 0 - нет
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="НачисленыСВ" type="xs:boolean">
+                                <xs:annotation>
+                                    <xs:documentation>Подтверждение начисления страховых взносов. Возможные
+                                        значения: 1 - да, 0 - нет
+                                    </xs:documentation>
+                                </xs:annotation>
                             </xs:element>
                         </xs:sequence>
                     </xs:complexType>
