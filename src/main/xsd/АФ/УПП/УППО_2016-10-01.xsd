@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="2.0" elementFormDefault="qualified" xmlns="http://пф.рф/АФ/УПП/Общий/2016-03-15/2016-03-15" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:УПП="http://пф.рф/АФ/УПП/типы" xmlns:АФ="http://пф.рф/АФ"
+           xmlns:УТ="http://пф.рф/унифицированныеТипы/2014-01-01" targetNamespace="http://пф.рф/АФ/УПП/Общий/2016-03-15/2016-03-15">
+	<xs:annotation>
+		<xs:documentation>XML-схема для формирования XML для учета ошибок и предупреждений цикла проверок проверочного модуля ПК БПИ для отчетности страхователей</xs:documentation>
+	</xs:annotation>
+
+	<xs:import namespace="http://пф.рф/АФ" schemaLocation="../../to.xsd"/>
+	<xs:import namespace="http://пф.рф/унифицированныеТипы/2014-01-01" schemaLocation="../../ut_2014-01-01.xsd"/>
+	<xs:import namespace="http://пф.рф/АФ/УПП/типы" schemaLocation="ТипыУПП.xsd"/>
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="../../xmldsig_core_schema.xsd"/>
+
+	<xs:element name="ЭДПФР">
+		<xs:annotation>
+			<xs:documentation>Корневой элемент. Электронный документ УПП (Унифицированный протокол проверок проверочного модуля ПК БПИ для отчетности страхователей). Содержит сведения самого документа и служебную информацию об электронном документе.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="УПП" type="УПП:ТипУПП">
+					<xs:annotation>
+						<xs:documentation>Унифицированный протокол проверок</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ЭлектроннаяПодпись" xmlns="http://www.w3.org/2000/09/xmldsig#" type="SignatureType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Электронная подпись (ЭП). Электронный документ, для которого законодательством Российской Федерации предусмотрена юридически значимая подпись, должен быть подписан усиленной квалифицированной электронной подписью в соответствии со спецификацией XMLDSig</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="СлужебнаяИнформация">
+					<xs:annotation>
+						<xs:documentation>Служебная информация об электронном документе</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="АФ:ТипСлужебнаяИнформация">
+								<xs:sequence>
+									<xs:element name="Контрагент" type="УТ:ТипОрганизация" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Сведения о контрагенте, представившем документ</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="ОтчетныйГод" type="xs:gYear" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Отчетный год, за который предоставлен документ</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:choice>
+										<xs:annotation>
+											<xs:documentation>Для ежемесячной отчетности заполняется элемент ОтчетныйМесяц, для квартальной или годовой - элемент ОтчетныйПериод</xs:documentation>
+										</xs:annotation>
+										<xs:element name="ОтчетныйМесяц" type="УТ:ТипМесяц" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Отчетный месяц, за который предоставлен документ</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="ОтчетныйПериод" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Отчетный период, за который предоставлен документ. Возможные значения:
+													для отчетных периодов 2014-2016 гг.
+													3 - с 01.01.гггг по 31.03.гггг
+													6 - с 01.04.гггг по 30.06.гггг
+													9 - с 01.07.гггг по 30.09.гггг
+													0 - с 01.10.гггг по 31.12.гггг
+													для отчетных периодов с 2017 года
+													0 - с 01.01.гггг по 31.12.гггг
+													21 - с 01.01.гггг по 31.03.гггг
+													31 - с 01.01.гггг по 30.06.гггг
+													33 - с 01.01.гггг по 30.09.гггг
+													34 - с 01.01.гггг по 31.12.гггг
+													51 - с 01.01.гггг по 31.03.гггг
+													52 - с 01.01.гггг по 30.06.гггг
+													53 - с 01.01.гггг по 30.09.гггг
+													90 - с 01.01.гггг по 31.12.гггг
+												</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="2"/>
+													<xs:enumeration value="3"/>
+													<xs:enumeration value="6"/>
+													<xs:enumeration value="9"/>
+													<xs:enumeration value="0"/>
+													<xs:enumeration value="21"/>
+													<xs:enumeration value="31"/>
+													<xs:enumeration value="33"/>
+													<xs:enumeration value="34"/>
+													<xs:enumeration value="51"/>
+													<xs:enumeration value="52"/>
+													<xs:enumeration value="53"/>
+													<xs:enumeration value="90"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:choice>
+									<xs:element name="НомерКорректировки" type="xs:nonNegativeInteger" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Номер корректировки документа</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="КоличествоЗЛ" type="xs:positiveInteger" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Количество застрахованных лиц, содержащихся в документе</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="РезультатПроверки" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Общий результат проверки документа</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
