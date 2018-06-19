@@ -5,7 +5,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.w3c.dom.Document;
-import рф.пф.всво.роив.снз._2017_10_06.EDPFR;
+import рф.пф.аф._2017_08_21.ТипСлужебнаяИнформация;
+import рф.пф.всво.роив.снз._2017_10_06.ЭДПФР;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -16,7 +17,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 public class TempClassExcel {
 
@@ -29,6 +31,7 @@ public class TempClassExcel {
         if (file.exists()) {
             try {
                 readFromExcel(file.getAbsolutePath());
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -43,25 +46,33 @@ public class TempClassExcel {
      * Метод для чтения данных из Excel-документа
      *
      * @param file excel-документ
-     * @return данные из excel-документа
      */
     private static void readFromExcel(String file) throws Exception {
 
+        ЭДПФР edpfr;
         try (HSSFWorkbook book = new HSSFWorkbook(new FileInputStream(file))) {
+            StringBuilder builder = new StringBuilder();
 
             HSSFSheet sheet = book.getSheetAt(0);
-
-            EDPFR edpfr = new EDPFR();
+            edpfr = new ЭДПФР();
 
 
             for (Row row : sheet) {
-                if (row.getRowNum() > 5 && row.getRowNum() < 33) {
 
-                    EDPFR.SNZ snz = new EDPFR.SNZ();
-                    EDPFR.SNZ.Работодатель employer = new EDPFR.SNZ.Работодатель();
-                    EDPFR.SNZ.Работник worker = new EDPFR.SNZ.Работник();
-                    EDPFR.SNZ.ТрудовойДоговор workDocument = new EDPFR.SNZ.ТрудовойДоговор();
+                if (row.getRowNum() > 5 && row.getRowNum() < 33) {
+                    ЭДПФР.СНЗ snz = new ЭДПФР.СНЗ();
+                    ТипСлужебнаяИнформация info = new ТипСлужебнаяИнформация();
+                    ЭДПФР.СНЗ.ПодтверждениеСтажа stazh = new ЭДПФР.СНЗ.ПодтверждениеСтажа();
+                    ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись letter = new ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись();
+                    ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись.Работник worker = new ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись.Работник();
+                    ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись.Работодатель employer = new ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись.Работодатель();
+                    ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись.ТрудовойДоговор workDocument = new ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись.ТрудовойДоговор();
+                    String LastName = "";
+                    String MiddleName = "";
+                    String Name = "";
+                    System.out.println(builder.toString());
                     for (Cell cell : row) {
+
 
                         switch (cell.getColumnIndex()) {
                             case 1:
@@ -80,13 +91,16 @@ public class TempClassExcel {
                                 employer.setРегНомер(cell.getStringCellValue());
                                 break;
                             case 6:
-                                worker.setФамилия(cell.getStringCellValue());
+                                LastName = cell.getStringCellValue();
+                                worker.setФИО(builder.append(LastName + " ").toString());
                                 break;
                             case 7:
-                                worker.setИмя(cell.getStringCellValue());
+                                Name = cell.getStringCellValue();
+                                worker.setФИО(builder.append(Name + " ").toString());
                                 break;
                             case 8:
-                                worker.setОтчество(cell.getStringCellValue());
+                                MiddleName = cell.getStringCellValue();
+                                worker.setФИО(builder.append(MiddleName + " ").toString());
                                 break;
                             case 9:
                                 worker.setДатаРождения(cell.getDateCellValue());
@@ -98,28 +112,52 @@ public class TempClassExcel {
                                 workDocument.setДата(cell.getDateCellValue());
                                 break;
                             case 12:
-                                workDocument.setСрок(cell.getStringCellValue());
+                                workDocument.setСрок(String.valueOf(cell.getStringCellValue()));
                                 break;
                             case 13:
-                                snz.setСтажПодтвержден(cell.getBooleanCellValue());
+                                letter.setСтажПодтвержден(cell.getBooleanCellValue());
                                 break;
                             case 14:
-                                snz.setНачисленыСВ(cell.getBooleanCellValue());
+                                letter.setНачисленыСВ(cell.getBooleanCellValue());
                                 break;
-                        }
+                            default:
+                                builder.delete(0, 1000);
+
+
 
                     }
-                    snz.setРаботник(worker);
-                    snz.setРаботодатель(employer);
-                    snz.setТрудовойДоговор(workDocument);
-                    edpfr.setSNZ(snz);
-                    writeToXml(getXMLDocument(edpfr,EDPFR.class));
+
+                    }
+
+                    letter.setРаботодатель(employer);
+                    letter.setРаботник(worker);
+                    letter.setТрудовойДоговор(workDocument);
+
+                    stazh.getЗапись().add(letter);
+                    snz.setПодтверждениеСтажа(stazh);
+
+                    info.setGUID(UUID.randomUUID());
+                    Date date = new Date();
+                    info.setДатаВремя(date);
+                    edpfr.setСНЗ(snz);
+                    edpfr.setСлужебнаяИнформация(info);
+                    writeToXml(getXMLDocument(edpfr, ЭДПФР.class));
+
                 }
 
             }
         }
+
+
+
     }
 
+    /**
+     * Метод для записи строки в xml файл.
+     *
+     * @param string строка
+     * @throws IOException
+     */
     private static void writeToXml(String string) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\user\\Desktop\\application\\src\\main\\xsd\\014.xml", true))) {
             writer.write(string);
