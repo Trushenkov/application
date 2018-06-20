@@ -1,12 +1,10 @@
 package ru.tds.excel;
 
-import рф.пф.всво.роив.снз._2017_10_06.ЭДПФР;
-
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class XlsFile extends ЭДПФР.СНЗ {
+public class XlsFile {
 
     private Date date;
 
