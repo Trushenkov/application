@@ -6,9 +6,12 @@ import org.apache.poi.ss.usermodel.Row;
 import org.w3c.dom.Document;
 import рф.пф.аф._2017_08_21.ТипСлужебнаяИнформация;
 import рф.пф.всво.роив.снз._2017_10_06.ЭДПФР;
+import рф.пф.ут._2017_08_21.ТипФИО;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -21,8 +24,6 @@ import java.util.*;
 public class TempClassExcel {
 
     private static final String FILE_PATH = "C:\\Users\\user\\Desktop\\014.xls";
-
-//    private static List<XlsRow> rowList;
 
     public static void main(String[] args) {
 
@@ -38,10 +39,7 @@ public class TempClassExcel {
         } else {
             System.out.println("Файл не существует");
         }
-
-
     }
-
 
     private static void startMethod(String file) throws Exception {
 
@@ -54,12 +52,12 @@ public class TempClassExcel {
             ЭДПФР edpfr = new ЭДПФР();
             ЭДПФР.СНЗ snz = new ЭДПФР.СНЗ();
             ЭДПФР.СНЗ.ПодтверждениеСтажа stazh = new ЭДПФР.СНЗ.ПодтверждениеСтажа();
+
             List<XlsRow> rowList = new ArrayList<>();
+
             for (Row row : sheet) {
                 if (row.getRowNum() > 5 && row.getRowNum() < 33) {
                     try {
-
-
 
                         ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись letter = new ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись();
                         ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись.ТрудовойДоговор workDocument = new ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись.ТрудовойДоговор();
@@ -71,8 +69,13 @@ public class TempClassExcel {
                         xlsRow.setRowNumber((int) row.getCell(0).getNumericCellValue());
                         xlsRow.setMunicipalEducation(row.getCell(1).getStringCellValue());
                         xlsRow.setNomination(row.getCell(2).getStringCellValue());
-                        xlsRow.setInn(String.valueOf(row.getCell(3).getNumericCellValue()));
-                        xlsRow.setKpp(String.valueOf(row.getCell(4).getNumericCellValue()));
+
+                        String inn = Double.toString(row.getCell(3).getNumericCellValue()).replace(".", "").replaceAll("[E]{1}[1-9]*", "");
+                        if (inn.length() < 10) {
+                            inn += "0";
+                        }
+                        xlsRow.setInn(inn);
+                        xlsRow.setKpp(Double.toString(row.getCell(4).getNumericCellValue()).replace(".", "").replaceAll("[E]{1}[1-9]*", ""));
                         xlsRow.setRegistrationNumber(row.getCell(5).getStringCellValue());
                         xlsRow.setLastName(row.getCell(6).getStringCellValue());
                         xlsRow.setName(row.getCell(7).getStringCellValue());
@@ -86,18 +89,31 @@ public class TempClassExcel {
 
                         rowList.add(xlsRow);
 
-
                         employment.setНаименование(xlsRow.getNomination());
                         employment.setИНН(xlsRow.getInn());
                         employment.setКПП(xlsRow.getKpp());
                         employment.setРегНомер(xlsRow.getRegistrationNumber());
 
-                        worker.setФИО(xlsRow.getLastName() + " " + xlsRow.getName() + " " + xlsRow.getMiddleName());
-                        worker.setДатаРождения(xlsRow.getDateBirthday());
+                        ТипФИО fio = new ТипФИО();
+                        fio.setФамилия(row.getCell(6).getStringCellValue());
+                        fio.setИмя(row.getCell(7).getStringCellValue());
+                        fio.setОтчество(row.getCell(8).getStringCellValue());
+                        worker.setФИО(fio);
+
+                        GregorianCalendar dateBirtday = new GregorianCalendar();
+                        dateBirtday.setTime(row.getCell(9).getDateCellValue());
+                        XMLGregorianCalendar dateBirthdayXML = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateBirtday);
+                        worker.setДатаРождения(dateBirthdayXML);
                         worker.setСНИЛС(xlsRow.getSnils());
 
-                        workDocument.setДата(xlsRow.getDateOfContract());
-                        workDocument.setСрок(xlsRow.getTermOfContract());
+
+                        GregorianCalendar forDateWorkDocument = new GregorianCalendar();
+                        forDateWorkDocument.setTime(row.getCell(11).getDateCellValue());
+                        XMLGregorianCalendar dateWorkDocumentXML = DatatypeFactory.newInstance().newXMLGregorianCalendar(forDateWorkDocument);
+                        workDocument.setДата(dateWorkDocumentXML);
+
+                        workDocument.setСрок(row.getCell(12).getStringCellValue());
+
 
                         letter.setРаботник(worker);
                         letter.setРаботодатель(employment);
@@ -118,6 +134,10 @@ public class TempClassExcel {
 
             Date date = new Date();
 
+            GregorianCalendar c = new GregorianCalendar();
+            c.setTime(date);
+            XMLGregorianCalendar date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+
             //Формирование объекта XlsFile
             xlsFile.setDate(date);
             xlsFile.setGUID(UUID.randomUUID());
@@ -125,8 +145,8 @@ public class TempClassExcel {
 
 
             ТипСлужебнаяИнформация info = new ТипСлужебнаяИнформация();
-            info.setДатаВремя(xlsFile.getDate());
-            info.setGUID(xlsFile.getGUID());
+            info.setДатаВремя(date2);
+            info.setGUID(String.valueOf(UUID.randomUUID()));
 
             edpfr.setСлужебнаяИнформация(info);
 
@@ -149,7 +169,7 @@ public class TempClassExcel {
     /**
      * Метод для получения xml-строки для объекта
      *
-     * @param objectToParse объект
+     * @param objectToParse    объект
      * @param xmlDocumentClass класс объекта
      * @param <T>
      * @return сформированная для объекта xml-строка
