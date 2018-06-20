@@ -1,11 +1,8 @@
 package ru.tds.excel;
 
-
-import рф.пф.всво.роив.снз._2017_10_06.ЭДПФР;
-
 import java.util.Date;
 
-public class XlsRow extends ЭДПФР.СНЗ.ПодтверждениеСтажа.Запись {
+public class XlsRow {
 
     private int rowNumber;
     private String municipalEducation;
