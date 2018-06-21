@@ -16,7 +16,7 @@ public class XlsRow {
     private Date dateBirthday;
     private String snils;
     private Date dateOfContract;
-    private String termOfContract;
+    private Date termOfContract;
     private Boolean agreeExperience;
     private Boolean insuranceСontributions;
 
@@ -24,7 +24,7 @@ public class XlsRow {
                   String inn, String kpp, String registrationNumber,
                   String lastName, String name, String middleName,
                   Date dateBirthday, String snils, Date dateOfContract,
-                  String termOfContract, Boolean agreeExperience, Boolean insuranceСontributions) {
+                  Date termOfContract, Boolean agreeExperience, Boolean insuranceСontributions) {
         this.rowNumber = rowNumber;
         this.municipalEducation = municipalEducation;
         this.nomination = nomination;
@@ -142,11 +142,11 @@ public class XlsRow {
         this.dateOfContract = dateOfContract;
     }
 
-    public String getTermOfContract() {
+    public Date getTermOfContract() {
         return termOfContract;
     }
 
-    void setTermOfContract(String termOfContract) {
+    void setTermOfContract(Date termOfContract) {
         this.termOfContract = termOfContract;
     }
 
