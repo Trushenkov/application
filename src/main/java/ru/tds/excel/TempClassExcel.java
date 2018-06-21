@@ -83,7 +83,11 @@ public class TempClassExcel {
                         xlsRow.setDateBirthday(row.getCell(9).getDateCellValue());
                         xlsRow.setSnils(row.getCell(10).getStringCellValue());
                         xlsRow.setDateOfContract(row.getCell(11).getDateCellValue());
-                        xlsRow.setTermOfContract(row.getCell(12).getStringCellValue());
+                        try{
+                            xlsRow.setTermOfContract(row.getCell(12).getDateCellValue());
+                        } catch (Exception e){
+                            xlsRow.setTermOfContract(null);
+                        }
                         xlsRow.setAgreeExperience(row.getCell(13).getBooleanCellValue());
                         xlsRow.setInsuranceСontributions(row.getCell(14).getBooleanCellValue());
 
@@ -112,7 +116,7 @@ public class TempClassExcel {
                         XMLGregorianCalendar dateWorkDocumentXML = DatatypeFactory.newInstance().newXMLGregorianCalendar(forDateWorkDocument);
                         workDocument.setДата(dateWorkDocumentXML);
 
-                        workDocument.setСрок(row.getCell(12).getStringCellValue());
+                        workDocument.setСрок(xlsRow.getTermOfContract());
 
 
                         letter.setРаботник(worker);
